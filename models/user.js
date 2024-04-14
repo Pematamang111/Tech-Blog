@@ -12,7 +12,7 @@ User.init ({
         primaryKey: true,
     },
     name: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     email: {
