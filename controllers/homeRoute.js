@@ -19,3 +19,18 @@ res.render('main', {
 }
 });
 
+router.get('/blog/:id', withAuth, async (req, res) => {
+    try{
+    const blogById = await Blog.findByPk(req.params.id, {
+       include: [{ model: User, attributes: ['name'] }]
+    });
+
+    const blog = blogById.get({ plain: true});
+    
+    res.render('blog', {
+        ...blog,
+        logged_in: req.session.logged_in
+     });
+     
+} catch (err) { res.status(400).json(err) }
+})
