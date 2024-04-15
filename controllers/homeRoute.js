@@ -1,7 +1,9 @@
+//dependencies
 const router = require('express').Router();
 const { Blog, User } = require('../models');
-const withAuth = require('../utils');
+const withAuth = require('../utils/auth');
 
+//homepage
 router.get('/', async (req, res) => {
 try {
     const blogData = await Blog.findAll({
@@ -22,17 +24,17 @@ res.render('main', {
 router.get('/blog/:id', withAuth, async (req, res) => {
     try{
     const blogById = await Blog.findByPk(req.params.id, {
-       include: [{ model: User, attributes: ['name'] }]
+       include: [{ model: User, attributes: ['name'], },],
     });
 
-    const blog = blogById.get({ plain: true});
+    const blog = blogById.get({ plain: true });
     
     res.render('blog', {
         ...blog,
         logged_in: req.session.logged_in
      });
 
-} catch (err) { res.status(400).json(err) }
+} catch (err) { res.status(500).json(err) }
 })
 
 router.get('/profile', withAuth, async (req, res) => {
@@ -52,6 +54,7 @@ router.get('/profile', withAuth, async (req, res) => {
 } catch (err) {res.status(400).json(err) }
 })
 
+  // If the user is already logged in, redirecting the request to another route
 router.get('/login', withAuth, async (req, res) => {
 if(req.session.logged_in){
     res.redirect('/profile');
