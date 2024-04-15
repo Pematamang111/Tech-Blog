@@ -1,7 +1,7 @@
 //dependencies
 const router = require('express').Router();
 const { Blog, User } = require('../models');
-const withAuth = require('../utils/auth');
+const { withAuth } = require('../utils/auth');
 
 //homepage
 router.get('/', async (req, res) => {
@@ -11,13 +11,15 @@ try {
     })
 
 const blogs = blogData.map((blog) => blog.get({ plain: true }));
-
-res.render('main', { 
+console.log('homepage', blogs) 
+res.render('homepage', { 
     blogs,
     loged_in: req.session.logged_in  });
+    console.log('homepage', blogs) 
 
 } catch (err) {
     res.status(400).json(err);
+    console.err(err);
 }
 });
 
