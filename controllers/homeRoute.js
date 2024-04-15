@@ -23,7 +23,7 @@ res.render('homepage', {
 }
 });
 
-router.get('/blog/:id', withAuth, async (req, res) => {
+router.get('/blog/:id', async (req, res) => {
     try{
     const blogById = await Blog.findByPk(req.params.id, {
        include: [{ model: User, attributes: ['name'], },],
@@ -57,11 +57,11 @@ router.get('/profile', withAuth, async (req, res) => {
 })
 
   // If the user is already logged in, redirecting the request to another route
-router.get('/login', withAuth, async (req, res) => {
-if(req.session.logged_in){
-    res.redirect('/profile');
+router.get('/login', async (req, res) => {
+ if(req.session.logged_in){
+     res.redirect('/profile');
     return;
-}
+ }
 res.render('login');
 });
 

@@ -2,9 +2,9 @@ module.exports = {
     withAuth: (req, res, next) => {
         if(!req.sessions.logged_in){
             res.redirect('./login');
-        }else {
-            next();
-        }
+         }else {
+             next();
+         }
     }
 };
 
