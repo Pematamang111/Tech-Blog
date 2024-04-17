@@ -1,11 +1,12 @@
 //dependencies
 const router = require('express').Router();
 const { User } = require('../../models');
-
-router.post('/', async (req, res) => {
+// All of these routes are PREFIXED with '/api/users'
+router.post('/signup', async (req, res) => {
+   console.log("Incoming Data: ", req.body);
    try {
    const newUser = User.create(req.body);
-   
+   console.log("New User: ", newUser);
    req.session.save(() => {
       req.session.user_id = newUser.id;
       req.session.logged_in = true;
@@ -13,11 +14,13 @@ router.post('/', async (req, res) => {
       res.status(200).json(newUser);
    })
 } catch (err) {
+   console.log("NewUser error",err);
    res.status(400).json(err);
 }
 });
 
 router.post('/login', async (req, res) => {
+   console.log("Req Obj Data: ", req.body);
   try {
    const userData = await User.findOne({ where: {email: req.body.email}});
 

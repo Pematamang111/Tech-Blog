@@ -5,6 +5,7 @@ const { withAuth } = require('../utils/auth');
 
 //homepage
 router.get('/', async (req, res) => {
+    console.log("Hit Landing ROute");
 try {
     const blogData = await Blog.findAll({
         include: [{ model: User, attributes: ['name'] }]

@@ -8,7 +8,7 @@ Blog.init ({
         type: DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        autoIncreament: true,
+        autoIncrement: true,
     },
     name: {
         type: DataTypes.STRING,
