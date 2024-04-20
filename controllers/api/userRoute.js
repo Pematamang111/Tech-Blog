@@ -5,7 +5,7 @@ const { User } = require('../../models');
 router.post('/signup', async (req, res) => {
    console.log("Incoming Data: ", req.body);
    try {
-   const newUser = User.create(req.body);
+   const newUser = await User.create(req.body);
    console.log("New User: ", newUser);
    req.session.save(() => {
       req.session.user_id = newUser.id;
@@ -23,16 +23,22 @@ router.post('/login', async (req, res) => {
    console.log("Req Obj Data: ", req.body);
   try {
    const userData = await User.findOne({ where: {email: req.body.email}});
+   const validPassword = await User.findOne({ where: {password: req.body.password}});
 
-  if (!userData) {
+//   if (!userData) {
+//    res.json({ message: 'Invalid email or password' });
+//   }
+
+//   const validPassword = await User.findOne({ where: {password: req.body.password}});
+
+// if (!validPassword) {
+//    res.json({ message: 'Invalid email or password'});
+// }
+
+if (!userData && !validPassword) {
    res.json({ message: 'Invalid email or password' });
   }
 
-  const validPassword = await User.findOne({ where: {password: req.body.password}});
-
-if (!validPassword) {
-   res.json({ message: 'Invalid email or password'});
-}
 
 req.session.save(() => {
    req.session.user_id = userData.id;
