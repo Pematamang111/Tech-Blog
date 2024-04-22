@@ -3,7 +3,7 @@ const newFormHandler = async (event) => {
   
     const name = document.querySelector('#project-name').value.trim();
     const description = document.querySelector('#project-desc').value.trim();
-  
+  console.log(name, description);
     if (name && description) {
       const response = await fetch(`/api/blogs`, {
         method: 'POST',
@@ -12,7 +12,7 @@ const newFormHandler = async (event) => {
           'Content-Type': 'application/json',
         },
       });
-  
+  console.log(response);
       if (response.ok) {
         document.location.replace('/profile');
       } else {

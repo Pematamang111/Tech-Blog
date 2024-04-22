@@ -43,7 +43,7 @@ router.get('/blog/:id', async (req, res) => {
 router.get('/profile', withAuth, async (req, res) => {
     try {
     const profileOfId = await User.findByPk(req.session.user_id, {
-       attributes: [ { exclude: 'password' }],
+       attributes:  { exclude: ['password'] },
        include: [{ model: Blog }],
     })
 
