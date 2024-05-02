@@ -21,6 +21,9 @@
   ## License
     Licensed under the MIT License license.
 
+  ## Deployed Link
+  https://tech-blog-sxgv.onrender.com  
+
   ## Screenshots  
   ![alt text](<Screenshot (259).png>)
   ![alt text](<Screenshot (261).png>)
